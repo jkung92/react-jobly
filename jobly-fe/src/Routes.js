@@ -22,15 +22,15 @@ class Routes extends Component {
             render={() => <Jobs data={this.props.jobs} />}
           />
           <Route
-            path="/companies"
-            render={() => <Companies data={this.props.companies} />}
-          />
-          <Route
             exact
-            path="/companies/:companyName"
+            path="/companies/:handle"
             render={routeProps => (
               <CompanyDetails {...routeProps} data={this.props.jobs} />
             )}
+          />
+          <Route
+            path="/companies"
+            render={() => <Companies data={this.props.companies} />}
           />
           <Route
             exact

@@ -9,7 +9,7 @@ class NavBar extends Component {
     };
 
     return (
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <NavLink
           className="navbar-brand"
           exact
@@ -20,7 +20,7 @@ class NavBar extends Component {
           Jobly
         </NavLink>{' '}
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarNav"
@@ -28,11 +28,11 @@ class NavBar extends Component {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon" />
+          <span className="navbar-toggler-icon" />
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item active">
               <NavLink
                 exact
                 to={`/jobs`}
@@ -42,7 +42,7 @@ class NavBar extends Component {
                 <p>Jobs</p>
               </NavLink>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink
                 exact
                 to={`/companies`}
@@ -52,7 +52,7 @@ class NavBar extends Component {
                 <p>Companies</p>
               </NavLink>
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               <NavLink
                 exact
                 to={`/profile`}
