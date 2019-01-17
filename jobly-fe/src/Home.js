@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
   render() {
@@ -6,11 +7,20 @@ class Home extends Component {
       <div>
         <h1> Jobly </h1>
         <p>All the jobs in one, convenient place.</p>
-        {/* {this.props.loggedIn ? (
+        {localStorage.getItem('_token') ? (
           <h2> Welcome Back!</h2>
         ) : (
-          <button>Log In</button>
-        )} */}
+          <button className="btn btn-primary">
+            <Link
+              exact
+              to={`/login`}
+              className="nav-link"
+              style={{ color: 'white' }}
+            >
+              Login
+            </Link>
+          </button>
+        )}
       </div>
     );
   }

@@ -40,7 +40,9 @@ class Routes extends Component {
           <Route
             exact
             path="/login"
-            render={() => <Login data={this.props.users} />}
+            render={routeProps => (
+              <Login {...routeProps} data={this.props.users} />
+            )}
           />
           <Redirect to="/" />
         </Switch>

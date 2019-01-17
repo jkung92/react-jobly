@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 class NavBar extends Component {
+  logOut() {
+    alert('Successfully logged out!');
+    localStorage.clear();
+  }
+
   render() {
     const activeStyle = {
       fontWeight: 'bold',
@@ -62,16 +68,30 @@ class NavBar extends Component {
                 <p>Profile</p>
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                exact
-                to={`/`}
-                activeStyle={activeStyle}
-                className="nav-link"
-              >
-                <p>Log out</p>
-              </NavLink>
-            </li>
+            {/* // To secure this we have to go to the server in a ComponentDidMount to make sure valid token */}
+            {!localStorage.getItem('_token') ? (
+              <li>
+                <NavLink
+                  exact
+                  to={`/login`}
+                  activeStyle={activeStyle}
+                  className="nav-link"
+                >
+                  <p>Login</p>
+                </NavLink>
+              </li>
+            ) : (
+              <li>
+                <NavLink
+                  exact
+                  to={`/`}
+                  activeStyle={activeStyle}
+                  className="nav-link"
+                >
+                  <p onClick={this.logOut}> Log out</p>
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
       </nav>

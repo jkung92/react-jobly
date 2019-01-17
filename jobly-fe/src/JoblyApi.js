@@ -5,10 +5,12 @@ class JoblyApi {
   static async request(endpoint, paramsOrData = {}, verb = 'get') {
     console.debug('API Call:', endpoint, paramsOrData, verb);
 
-    paramsOrData._token = // for now, hardcode token for "testuser"
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6' +
-      'InRlc3R1c2VyIiwiaXNfYWRtaW4iOmZhbHNlLCJpYXQiOjE1NDE1N' +
-      'jQ2Nzl9.LYDHSkl81gEm7jfHv9wJhzD4ndpuBkSzBan8Nirb6UY';
+    paramsOrData._token = localStorage.getItem('_token');
+
+    // for now, hardcode token for "testuser"
+    // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6' +
+    // 'InRlc3R1c2VyIiwiaXNfYWRtaW4iOmZhbHNlLCJpYXQiOjE1NDE1N' +
+    // 'jQ2Nzl9.LYDHSkl81gEm7jfHv9wJhzD4ndpuBkSzBan8Nirb6UY';
 
     try {
       return (await axios({
@@ -50,6 +52,18 @@ class JoblyApi {
     return res.jobs;
   }
 
+  // POST. Add a register method that posts to /users
+  static async register(paramsOrData) {
+    let res = await this.request('users', paramsOrData, 'post');
+    return res.token;
+  }
+
+  // POST. Add a login method
+  static async login(paramsOrData) {
+    let res = await this.request('login', paramsOrData, 'post');
+    return res.token;
+  }
+  //  static async request(endpoint, paramsOrData = {}, verb = 'get') {
   // need to add getJobs , getUsers, authUser
 }
 

@@ -1,42 +1,45 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 class Card extends Component {
+  // Can refactor later to make it easier to read:
+  // renderCompanyDetails()
+  // renderJobDetails
+
   render() {
-    //  const {name, handle} =this.props
+    const { job, company } = this.props;
     return (
       <div className="container text-left mt-2">
         <div className="card">
           <div className="card-body">
             <h5 className="card-title d-flex text-dark">
-              {/* {this.props.company.name} */}
-              {Object.keys(this.props)[0] === 'company' ? (
+              {company ? (
                 <div className="d-flex justify-content-between">
                   <i class="fas fa-warehouse" />
 
                   <Link
-                    to={`/companies/${this.props.company.handle}/`}
+                    to={`/companies/${company.handle}/`}
                     style={{ color: 'black' }}
                   >
-                    {this.props.company.name}
+                    {company.name}
                   </Link>
                 </div>
               ) : (
-                this.props.job.title
+                job.title
               )}
             </h5>
             <p className="card-text text-dark">
-              {Object.keys(this.props)[0] === 'company' ? (
+              {company ? (
                 <Link
-                  to={`/companies/${this.props.company.handle}/`}
+                  to={`/companies/${company.handle}/`}
                   className="text-dark"
                 >
-                  {this.props.company.description}
+                  {company.description}
                 </Link>
               ) : (
                 <div>
                   <ul style={{ listStyleType: `none` }}>
-                    <li>Salary: {this.props.job.salary}</li>
-                    <li>Equity: {this.props.job.equity}</li>
+                    <li>Salary: {job.salary}</li>
+                    <li>Equity: {job.equity}</li>
                   </ul>
                   <button className="btn btn-danger float-right">
                     I am fake Apply
