@@ -21,7 +21,6 @@ class Login extends Component {
   }
   async getToken(e) {
     e.preventDefault();
-    console.log('this is the state', this.state);
     // call the api and get the token
     // remove _login, _token
     // Can clean this up...
@@ -32,7 +31,8 @@ class Login extends Component {
       : await JoblyApi.register(registerData);
     // set token to local storage
     localStorage.setItem('_token', apiToken);
-    // redirect to home page
+    // update the state in App.js currUser
+    this.props.getUserInfo(apiToken);
 
     this.setState({
       username: '',
@@ -54,7 +54,6 @@ class Login extends Component {
     if (this.state._login) {
       for (let i in this.state) {
         let type = i === 'password' ? 'password' : 'text';
-        console.log(`key is `, i, `type is `, type);
         if (!i.startsWith('_') && ['username', 'password'].includes(i)) {
           listofInputs.push(
             <Input
@@ -85,6 +84,7 @@ class Login extends Component {
   }
 
   render() {
+    console.log('login props', this.props);
     return (
       <div className="container">
         <button

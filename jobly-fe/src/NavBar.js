@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
+const activeStyle = {
+  fontWeight: 'bold',
+  color: 'dodgerblue'
+};
 
 class NavBar extends Component {
-  logOut() {
+  logOut = () => {
     alert('Successfully logged out!');
     localStorage.clear();
-  }
+    // clear the app state
+    console.log('navbar', this.props);
+    this.props.resetState();
+    // return <Redirect to="/" />;
+  };
 
-  render() {
-    const activeStyle = {
-      fontWeight: 'bold',
-      color: 'dodgerblue'
-    };
-
+  renderLoggedIn = () => {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <NavLink
@@ -37,7 +40,7 @@ class NavBar extends Component {
           <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
+          <span className="navbar-nav">
             <li className="nav-item active">
               <NavLink
                 exact
@@ -70,33 +73,87 @@ class NavBar extends Component {
             </li>
             {/* // To secure this we have to go to the server in a ComponentDidMount to make sure valid token */}
             {!localStorage.getItem('_token') ? (
-              <li>
-                <NavLink
-                  exact
-                  to={`/login`}
-                  activeStyle={activeStyle}
-                  className="nav-link"
-                >
-                  <p>Login</p>
-                </NavLink>
-              </li>
+              <NavLink
+                exact
+                to={`/login`}
+                activeStyle={activeStyle}
+                className="nav-link"
+              >
+                <p>Login</p>
+              </NavLink>
             ) : (
-              <li>
-                <NavLink
-                  exact
-                  to={`/`}
-                  activeStyle={activeStyle}
-                  className="nav-link"
-                >
-                  <p onClick={this.logOut}> Log out</p>
-                </NavLink>
-              </li>
+              <NavLink
+                exact
+                to={`/`}
+                activeStyle={activeStyle}
+                className="nav-link"
+              >
+                <p onClick={this.logOut}> Log out</p>
+              </NavLink>
             )}
-          </ul>
+          </span>
         </div>
       </nav>
     );
+  };
+
+  renderLoggedOut = () => {
+    return (
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <NavLink
+          className="navbar-brand"
+          exact
+          to="/"
+          activeStyle={activeStyle}
+        >
+          {' '}
+          Jobly
+        </NavLink>{' '}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+        {!localStorage.getItem('_token') ? (
+          <span>
+            <NavLink
+              exact
+              to={`/login`}
+              activeStyle={activeStyle}
+              className="nav-link"
+            >
+              <p>Login</p>
+            </NavLink>
+          </span>
+        ) : (
+          <span>
+            <NavLink
+              exact
+              to={`/`}
+              activeStyle={activeStyle}
+              className="nav-link"
+            >
+              <p onClick={this.logOut}> Log out</p>
+            </NavLink>
+          </span>
+        )}
+      </nav>
+    );
+  };
+
+  render() {
+    console.log(this.props.data);
+    return this.props.data.currUser
+      ? this.renderLoggedIn()
+      : this.renderLoggedOut();
   }
 }
 
 export default NavBar;
+// return this.props.data ? this.renderLoggedIn() : this.renderLoggedOut();

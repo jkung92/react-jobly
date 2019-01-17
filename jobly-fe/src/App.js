@@ -7,20 +7,43 @@ import JoblyApi from './JoblyApi';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { companies: [], jobs: [], users: [] };
+    this.state = { currUser: undefined };
   }
-  // componentdidmount to get the initial data
+
+  async componentDidMount() {
+    if (localStorage.getItem('_token')) {
+      const midPart = localStorage.getItem('_token').split('.')[1];
+      const payload = atob(midPart);
+      const payloadJSON = JSON.parse(payload);
+      const userName = payloadJSON.username;
+      const currUser = await JoblyApi.getUserInfo(userName);
+      console.log(currUser);
+      this.setState({ currUser });
+    }
+  }
+
+  updateCurrUser = async token => {
+    const payload = atob(token.split('.')[1]);
+    const payloadJSON = JSON.parse(payload);
+    const userName = payloadJSON.username;
+    const currUser = await JoblyApi.getUserInfo(userName);
+    console.log(currUser);
+    this.setState({ currUser });
+  };
   // async componentDidMount() {
   //  await JoblyApi.getCompany(){
 
   //   }
   // }
+  resetState = () => {
+    this.setState({ currUser: undefined });
+  };
 
   render() {
     return (
       <div className="App">
-        <NavBar data={this.state} />
-        <Routes data={this.state} />
+        <NavBar data={this.state} resetState={this.resetState} />
+        <Routes data={this.state} getUserInfo={this.updateCurrUser} />
       </div>
     );
   }

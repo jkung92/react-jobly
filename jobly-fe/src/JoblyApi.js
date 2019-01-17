@@ -65,6 +65,10 @@ class JoblyApi {
   }
   //  static async request(endpoint, paramsOrData = {}, verb = 'get') {
   // need to add getJobs , getUsers, authUser
+  static async getUserInfo(userName) {
+    let res = await this.request(`users/${userName}`);
+    return res.user;
+  }
 }
 
 export default JoblyApi;
