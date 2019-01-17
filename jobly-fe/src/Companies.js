@@ -12,8 +12,8 @@ class Companies extends Component {
   }
 
   async componentDidMount() {
-    const AllCompanies = await JoblyApi.getAllCompanies();
-    this.setState({ companies: AllCompanies });
+    const allCompanies = await JoblyApi.getAllCompanies();
+    this.setState({ companies: allCompanies });
   }
 
   // get the searchedCompanies

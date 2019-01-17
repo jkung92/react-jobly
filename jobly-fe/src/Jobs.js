@@ -7,19 +7,19 @@ import SearchBar from './SearchBar';
 class Jobs extends Component {
   constructor(props) {
     super(props);
-    this.state = { Jobs: [] };
+    this.state = { jobs: [] };
     this.updateSearch = this.updateSearch.bind(this);
   }
 
   async componentDidMount() {
-    const AllJobs = await JoblyApi.getAllJobs();
-    this.setState({ Jobs: AllJobs });
+    const allJobs = await JoblyApi.getAllJobs();
+    this.setState({ jobs: allJobs });
   }
 
   // get the searchedJobs
   async updateSearch(jobName) {
     const filteredJobs = await JoblyApi.searchJob(jobName);
-    this.setState({ Jobs: filteredJobs });
+    this.setState({ jobs: filteredJobs });
   }
 
   render() {
@@ -30,7 +30,7 @@ class Jobs extends Component {
         <h1> Jobs </h1>
         <SearchBar updateSearch={this.updateSearch} />
         <div>
-          {this.state.Jobs.map(job => (
+          {this.state.jobs.map(job => (
             <Card job={job} />
           ))}
         </div>

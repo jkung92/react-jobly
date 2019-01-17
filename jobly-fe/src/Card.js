@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 class Card extends Component {
   render() {
-    //tenery to render jobcard or company card
-    // if (Object.keys(this.props)[0] === 'company') {
-    //   name;
-    // }
-    // console.log('I am handle', this.props.company.handle);
-
+    //  const {name, handle} =this.props
     return (
       <div className="container text-left mt-2">
         <div className="card">
@@ -15,18 +10,15 @@ class Card extends Component {
             <h5 className="card-title d-flex text-dark">
               {/* {this.props.company.name} */}
               {Object.keys(this.props)[0] === 'company' ? (
-                <div>
-                  <div class="float-right">
-                    <i class="fas fa-warehouse" />
-                  </div>
-                  <div>
-                    <Link
-                      to={`/companies/${this.props.company.handle}/`}
-                      style={{ color: 'black' }}
-                    >
-                      {this.props.company.name}
-                    </Link>
-                  </div>
+                <div className="d-flex justify-content-between">
+                  <i class="fas fa-warehouse" />
+
+                  <Link
+                    to={`/companies/${this.props.company.handle}/`}
+                    style={{ color: 'black' }}
+                  >
+                    {this.props.company.name}
+                  </Link>
                 </div>
               ) : (
                 this.props.job.title
