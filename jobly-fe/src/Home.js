@@ -11,12 +11,7 @@ class Home extends Component {
           <h2> Welcome Back!</h2>
         ) : (
           <button className="btn btn-primary">
-            <Link
-              exact
-              to={`/login`}
-              className="nav-link"
-              style={{ color: 'white' }}
-            >
+            <Link to={`/login`} className="nav-link" style={{ color: 'white' }}>
               Login
             </Link>
           </button>

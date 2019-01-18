@@ -24,7 +24,7 @@ class Companies extends Component {
 
   render() {
     //const companies = this.props.data;
-
+    console.log(`this is inside companies.js`, this.props.data);
     return (
       <div>
         <h1> Companies </h1>

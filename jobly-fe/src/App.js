@@ -3,11 +3,13 @@ import './App.css';
 import NavBar from './NavBar';
 import Routes from './Routes';
 import JoblyApi from './JoblyApi';
+import ProtectedRoute from './ProtectedRoute';
+import { withRouter } from 'react-router-dom';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { currUser: undefined };
+    this.state = { currUser: null, loaded: false };
   }
 
   async componentDidMount() {
@@ -17,8 +19,8 @@ class App extends Component {
       const payloadJSON = JSON.parse(payload);
       const userName = payloadJSON.username;
       const currUser = await JoblyApi.getUserInfo(userName);
-      console.log(currUser);
-      this.setState({ currUser });
+      console.log(`We are inside comp did mount`, currUser);
+      this.setState({ currUser, loaded: true });
     }
   }
 
@@ -30,23 +32,26 @@ class App extends Component {
     console.log(currUser);
     this.setState({ currUser });
   };
-  // async componentDidMount() {
-  //  await JoblyApi.getCompany(){
 
-  //   }
-  // }
   resetState = () => {
-    this.setState({ currUser: undefined });
+    this.setState({ currUser: null });
   };
 
   render() {
     return (
-      <div className="App">
-        <NavBar data={this.state} resetState={this.resetState} />
-        <Routes data={this.state} getUserInfo={this.updateCurrUser} />
+      <div>
+        {/* {this.state.loaded ? (
+          <div> Loading... </div>
+        ) : ( */}
+        <div className="App">
+          <NavBar data={this.state} resetState={this.resetState} />
+          <Routes data={this.state} getUserInfo={this.updateCurrUser} />
+          <ProtectedRoute data={this.state} />
+        </div>
+        {/* )} */}
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

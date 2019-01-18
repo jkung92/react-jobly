@@ -13,7 +13,6 @@ class NavBar extends Component {
     // clear the app state
     console.log('navbar', this.props);
     this.props.resetState();
-    // return <Redirect to="/" />;
   };
 
   renderLoggedIn = () => {

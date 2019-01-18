@@ -7,58 +7,59 @@ import Companies from './Companies';
 import CompanyDetails from './CompanyDetails';
 import Profile from './Profile';
 import Login from './Login';
+import ProtectedRoute from './ProtectedRoute';
 
 class Routes extends Component {
   render() {
     console.log('routes, props', this.props);
     return (
       <div>
-        {this.props.data.currUser ? (
-          <Switch>
+        {/* {this.props.data.currUser ? ( */}
+        <Switch>
+          <Route exact path="/" render={() => <Home />} />
+          <ProtectedRoute
+            exact
+            path="/jobs"
+            render={() => <Jobs data={this.props.data} />}
+          />
+          <ProtectedRoute
+            exact
+            path="/companies/:handle"
+            render={routeProps => (
+              <CompanyDetails {...routeProps} data={this.props.data} />
+            )}
+          />
+          <ProtectedRoute
+            path="/companies"
+            render={() => <Companies data={this.props.data} />}
+          />
+          <ProtectedRoute
+            exact
+            path="/profile"
+            render={() => <Profile data={this.props.data} />}
+          />
+          <Route
+            exact
+            path="/login"
+            render={routeProps => (
+              <Login
+                {...routeProps}
+                data={this.props.data}
+                getUserInfo={this.props.getUserInfo}
+              />
+            )}
+          />
+          <Redirect to="/" />
+        </Switch>
+        {/* ) : ( */}
+        {/* <Switch>
             <Route exact path="/" render={() => <Home />} />
-            <Route
-              exact
-              path="/jobs"
-              render={() => <Jobs data={this.props.data} />}
-            />
-            <Route
-              exact
-              path="/companies/:handle"
-              render={routeProps => (
-                <CompanyDetails {...routeProps} data={this.props.data} />
-              )}
-            />
-            <Route
-              path="/companies"
-              render={() => <Companies data={this.props.data} />}
-            />
-            <Route
-              exact
-              path="/profile"
-              render={() => <Profile data={this.props.data} />}
-            />
             <Route
               exact
               path="/login"
               render={routeProps => (
                 <Login
                   {...routeProps}
-                  data={this.props.data}
-                  getUserInfo={this.props.getUserInfo}
-                />
-              )}
-            />
-            <Redirect to="/" />
-          </Switch>
-        ) : (
-          <Switch>
-            <Route exact path="/" render={() => <Home />} />
-            <Route
-              exact
-              path="/login"
-              render={routeProps => (
-                <Login
-                  {...routeProps}
                   getUserInfo={this.props.getUserInfo}
                   data={this.props.data}
                 />
@@ -66,7 +67,7 @@ class Routes extends Component {
             />
             <Redirect to="/" />
           </Switch>
-        )}
+        )} */}
       </div>
     );
   }

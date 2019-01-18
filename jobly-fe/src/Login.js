@@ -105,7 +105,7 @@ class Login extends Component {
         </button>
 
         <form onSubmit={this.getToken}>
-          <div class="card">
+          <div className="card">
             {this.createBoard()}
             <button type="submit" class="btn btn-primary float-right">
               Submit

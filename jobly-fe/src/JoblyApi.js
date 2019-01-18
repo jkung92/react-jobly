@@ -69,6 +69,13 @@ class JoblyApi {
     let res = await this.request(`users/${userName}`);
     return res.user;
   }
+  // patch user Info
+
+  static async patchUserInfo(userName, data) {
+    console.log(`username in patchUserInfo:`, userName, `data is:`, data);
+    let res = await this.request(`users/${userName}`, data, 'patch');
+    console.log(`This is inside patchUserInfo`, res);
+  }
 }
 
 export default JoblyApi;
