@@ -12,6 +12,8 @@ class App extends Component {
     this.state = { currUser: null, loaded: false };
   }
 
+  // Probably can extract DECODE into a helper function
+
   async componentDidMount() {
     if (localStorage.getItem('_token')) {
       const midPart = localStorage.getItem('_token').split('.')[1];
@@ -34,11 +36,6 @@ class App extends Component {
     console.log(currUser);
     this.setState({ currUser });
   };
-  //try the componentDidUpdate
-  // componentDidUpdate() {
-  //   this.setState({ loaded: true });
-  //   console.log('Inside App.js -------- componentDidUpdate');
-  // }
 
   resetState = () => {
     this.setState({ currUser: null });

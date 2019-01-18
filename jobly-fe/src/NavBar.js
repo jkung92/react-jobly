@@ -10,35 +10,22 @@ class NavBar extends Component {
   logOut = () => {
     alert('Successfully logged out!');
     localStorage.clear();
-    // clear the app state
     console.log('navbar', this.props);
     this.props.resetState();
   };
 
   renderLoggedIn = () => {
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
         <NavLink
           className="navbar-brand"
           exact
           to="/"
           activeStyle={activeStyle}
         >
-          {' '}
           Jobly
-        </NavLink>{' '}
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon" />
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+        </NavLink>
+        <div className="navbar" id="navbarNav">
           <span className="navbar-nav">
             <li className="nav-item active">
               <NavLink
@@ -70,7 +57,6 @@ class NavBar extends Component {
                 <p>Profile</p>
               </NavLink>
             </li>
-            {/* // To secure this we have to go to the server in a ComponentDidMount to make sure valid token */}
             {!localStorage.getItem('_token') ? (
               <NavLink
                 exact
@@ -108,17 +94,6 @@ class NavBar extends Component {
           {' '}
           Jobly
         </NavLink>{' '}
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon" />
-        </button>
         {!localStorage.getItem('_token') ? (
           <span>
             <NavLink

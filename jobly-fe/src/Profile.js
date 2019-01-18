@@ -31,6 +31,7 @@ class Profile extends Component {
       const { username, password, photo_url, ...data } = this.state;
       if (photo_url) {
         this.setState({
+          // Refactor --DEFAULT PROPS -- use this url as the this.prop.photoUrl
           photo_url: `https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg`
         });
       }
@@ -42,6 +43,7 @@ class Profile extends Component {
       } else {
         alert('Wrong password');
       }
+      // Refactor -- don't use both try/catch and if/else here
     } catch (error) {
       console.log(error);
       alert('Wrong password');
