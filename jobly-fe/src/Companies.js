@@ -31,7 +31,7 @@ class Companies extends Component {
         <SearchBar updateSearch={this.updateSearch} />
         <div>
           {this.state.companies.map(comp => (
-            <Card company={comp} />
+            <Card company={comp} username={this.props.data.currUser.username} />
           ))}
         </div>
       </div>

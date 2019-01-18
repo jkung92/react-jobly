@@ -25,15 +25,30 @@ class Profile extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // ** BUG -- password field doesn't work, still lets us change user data without correct password
   async handleSubmit(evt) {
     evt.preventDefault();
-    // call the api
-    const { username, ...data } = this.state;
-    const updatedUser = await JoblyApi.patchUserInfo(username, data);
-    console.log(`This is the updated user details: --`, updatedUser);
-    //go to the home page
+    try {
+      const { username, password, photo_url, ...data } = this.state;
+      if (photo_url) {
+        this.setState({
+          photo_url: `https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg`
+        });
+      }
+      // Need to make two API calls - one to verify password is correct(returns the token)
+      const verified = await JoblyApi.login({ username, password });
+      // Another to update the user once password is verified, check if there's a token
+      if (verified) {
+        await JoblyApi.patchUserInfo(username, data);
+      } else {
+        alert('Wrong password');
+      }
+    } catch (error) {
+      console.log(error);
+      alert('Wrong password');
+    }
+    this.setState({ password: '' });
   }
+
   handleChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
   }
@@ -41,58 +56,65 @@ class Profile extends Component {
   render() {
     console.log(`inside Profile-------`, this.props);
     return (
-      <div className=" d-flex bd-highlight ">
-        <h2> Profile </h2>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <label for="username">Username</label>
-            <input name="username" value={this.state.username} disabled />
-          </div>
-          <div>
-            <label for="firstName">First Name</label>
-            <input
-              name="first_name"
-              value={this.state.first_name}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label for="lastName">Last Name</label>
-            <input
-              name="last_name"
-              value={this.state.last_name}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label for="email">Email</label>
-            <input
-              name="email"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label for="photoUrl">Photo URL</label>
-            <input
-              name="photo_url"
-              value={this.state.photo_url}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label for="password">Re-enter Password</label>
-            <input
-              name="password"
-              type="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Save Changes
-          </button>
-        </form>
+      <div className=" d-flex bd-highlight container">
+        <div className="container">
+          <h2> Profile for {this.state.username}</h2>
+          <form onSubmit={this.handleSubmit}>
+            <div>
+              <label for="firstName">First Name</label>
+              <input
+                name="first_name"
+                className="form-control"
+                value={this.state.first_name}
+                onChange={this.handleChange}
+              />
+            </div>
+            <div>
+              <label for="lastName">Last Name</label>
+              <input
+                name="last_name"
+                className="form-control"
+                value={this.state.last_name}
+                onChange={this.handleChange}
+              />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input
+                name="email"
+                className="form-control"
+                value={this.state.email}
+                onChange={this.handleChange}
+              />
+            </div>
+            <div>
+              <label for="photoUrl">Photo URL</label>
+              <input
+                name="photo_url"
+                className="form-control"
+                value={
+                  this.state.photo_url
+                    ? this.state.photo_url
+                    : `https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg`
+                }
+                onChange={this.handleChange}
+              />
+            </div>
+            <div>
+              <label for="password">Re-enter Password</label>
+              <input
+                name="password"
+                className="form-control"
+                type="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+            </div>
+            <button type="submit" className="btn btn-primary mt-2">
+              Save Changes
+            </button>
+          </form>
+        </div>
       </div>
     );
   }

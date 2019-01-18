@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import JoblyApi from './JoblyApi';
+
 class Card extends Component {
+  constructor(props) {
+    super(props);
+  }
   // Can refactor later to make it easier to read:
   // renderCompanyDetails()
   // renderJobDetails
+  handleApply = async () => {
+    // When button is clicked, state should be set to 'applied'
+    // call the api to update database -> appications table
+    const apply = await JoblyApi.apply(
+      this.props.job.id,
+      this.props.username,
+      'applied'
+    );
+    console.log(`inside applyJob in card --- `, apply);
+    // update the state of Job to "applied"
+    this.props.updateJobs();
+  };
 
   render() {
+    // console.log(`These are the props inside Card`, this.props);
     const { job, company } = this.props;
+    console.log(`This is in Card ----------`, job, company);
+
     return (
       <div className="container text-left mt-2">
         <div className="card">
@@ -41,8 +61,12 @@ class Card extends Component {
                     <li>Salary: {job.salary}</li>
                     <li>Equity: {job.equity}</li>
                   </ul>
-                  <button className="btn btn-danger float-right">
-                    I am fake Apply
+                  <button
+                    onClick={this.handleApply}
+                    className="btn btn-danger float-right"
+                    disabled={job.state === 'applied' ? true : false}
+                  >
+                    {job.state === 'applied' ? 'Applied' : 'Apply'}
                   </button>
                 </div>
               )}

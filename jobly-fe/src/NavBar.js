@@ -147,7 +147,6 @@ class NavBar extends Component {
   };
 
   render() {
-    console.log(this.props.data);
     return this.props.data.currUser
       ? this.renderLoggedIn()
       : this.renderLoggedOut();

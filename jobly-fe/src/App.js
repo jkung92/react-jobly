@@ -19,8 +19,10 @@ class App extends Component {
       const payloadJSON = JSON.parse(payload);
       const userName = payloadJSON.username;
       const currUser = await JoblyApi.getUserInfo(userName);
-      console.log(`We are inside comp did mount`, currUser);
       this.setState({ currUser, loaded: true });
+      // if there's no token loaded is still true
+    } else {
+      this.setState({ loaded: true });
     }
   }
 
@@ -32,6 +34,11 @@ class App extends Component {
     console.log(currUser);
     this.setState({ currUser });
   };
+  //try the componentDidUpdate
+  // componentDidUpdate() {
+  //   this.setState({ loaded: true });
+  //   console.log('Inside App.js -------- componentDidUpdate');
+  // }
 
   resetState = () => {
     this.setState({ currUser: null });
@@ -40,15 +47,15 @@ class App extends Component {
   render() {
     return (
       <div>
-        {/* {this.state.loaded ? (
+        {!this.state.loaded ? (
           <div> Loading... </div>
-        ) : ( */}
-        <div className="App">
-          <NavBar data={this.state} resetState={this.resetState} />
-          <Routes data={this.state} getUserInfo={this.updateCurrUser} />
-          <ProtectedRoute data={this.state} />
-        </div>
-        {/* )} */}
+        ) : (
+          <div className="App">
+            <NavBar data={this.state} resetState={this.resetState} />
+            <Routes data={this.state} getUserInfo={this.updateCurrUser} />
+            <ProtectedRoute data={this.state} />
+          </div>
+        )}
       </div>
     );
   }

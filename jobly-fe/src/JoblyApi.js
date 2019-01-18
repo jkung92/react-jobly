@@ -28,7 +28,6 @@ class JoblyApi {
     }
   }
 
-  //static async getAll() {}
   static async getCompany(handle) {
     let res = await this.request(`companies/${handle}`);
     return res.company;
@@ -44,7 +43,6 @@ class JoblyApi {
 
   static async getAllJobs() {
     let res = await this.request(`jobs/`);
-    console.log(res.jobs);
     return res.jobs;
   }
   static async searchJob(search) {
@@ -63,18 +61,25 @@ class JoblyApi {
     let res = await this.request('login', paramsOrData, 'post');
     return res.token;
   }
-  //  static async request(endpoint, paramsOrData = {}, verb = 'get') {
-  // need to add getJobs , getUsers, authUser
+  //gets a single user by username
   static async getUserInfo(userName) {
     let res = await this.request(`users/${userName}`);
     return res.user;
   }
   // patch user Info
-
   static async patchUserInfo(userName, data) {
-    console.log(`username in patchUserInfo:`, userName, `data is:`, data);
     let res = await this.request(`users/${userName}`, data, 'patch');
-    console.log(`This is inside patchUserInfo`, res);
+    return res.user;
+  }
+
+  static async apply(id, userName, state) {
+    let res = await this.request(
+      `jobs/${id}/apply`,
+      { id, userName, state },
+      'post'
+    );
+    console.log(`Inside JoblyAPI.js, checking results: `, res);
+    return res;
   }
 }
 

@@ -11,10 +11,8 @@ import ProtectedRoute from './ProtectedRoute';
 
 class Routes extends Component {
   render() {
-    console.log('routes, props', this.props);
     return (
       <div>
-        {/* {this.props.data.currUser ? ( */}
         <Switch>
           <Route exact path="/" render={() => <Home />} />
           <ProtectedRoute

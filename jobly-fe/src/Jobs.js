@@ -22,16 +22,24 @@ class Jobs extends Component {
     this.setState({ jobs: filteredJobs });
   }
 
-  render() {
-    //const Jobs = this.props.data;
+  updateJobs = async () => {
+    const allJobs = await JoblyApi.getAllJobs();
+    this.setState({ jobs: allJobs });
+  };
 
+  render() {
+    console.log(`Inside Jobs.js --- props are`, this.props.data);
     return (
       <div>
         <h1> Jobs </h1>
         <SearchBar updateSearch={this.updateSearch} />
         <div>
           {this.state.jobs.map(job => (
-            <Card job={job} />
+            <Card
+              job={job}
+              username={this.props.data.currUser.username}
+              updateJobs={this.updateJobs}
+            />
           ))}
         </div>
       </div>
