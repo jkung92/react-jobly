@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3001';
 
 class JoblyApi {
   static async request(endpoint, paramsOrData = {}, verb = 'get') {
@@ -7,15 +8,10 @@ class JoblyApi {
 
     paramsOrData._token = localStorage.getItem('_token');
 
-    // for now, hardcode token for "testuser"
-    // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6' +
-    // 'InRlc3R1c2VyIiwiaXNfYWRtaW4iOmZhbHNlLCJpYXQiOjE1NDE1N' +
-    // 'jQ2Nzl9.LYDHSkl81gEm7jfHv9wJhzD4ndpuBkSzBan8Nirb6UY';
-
     try {
       return (await axios({
         method: verb,
-        url: `http://localhost:3001/${endpoint}`,
+        url: `${BASE_URL}/${endpoint}`,
         [verb === 'get' ? 'params' : 'data']: paramsOrData
       })).data;
       // axios sends query string data via the "params" key,
