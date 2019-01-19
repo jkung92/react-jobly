@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+// BASE URL has a slash built-in
 const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3001';
 
 class JoblyApi {
@@ -11,7 +12,7 @@ class JoblyApi {
     try {
       return (await axios({
         method: verb,
-        url: `${BASE_URL}/${endpoint}`,
+        url: `${BASE_URL}${endpoint}`,
         [verb === 'get' ? 'params' : 'data']: paramsOrData
       })).data;
       // axios sends query string data via the "params" key,
