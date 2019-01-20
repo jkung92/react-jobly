@@ -10,7 +10,6 @@ class NavBar extends Component {
   logOut = () => {
     alert('Successfully logged out!');
     localStorage.clear();
-    console.log('navbar', this.props);
     this.props.resetState();
   };
 
@@ -84,7 +83,7 @@ class NavBar extends Component {
 
   renderLoggedOut = () => {
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <NavLink
           className="navbar-brand"
           exact
@@ -129,4 +128,3 @@ class NavBar extends Component {
 }
 
 export default NavBar;
-// return this.props.data ? this.renderLoggedIn() : this.renderLoggedOut();

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 // BASE URL has a slash built-in
-const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3001';
+const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3001/';
 
 class JoblyApi {
   static async request(endpoint, paramsOrData = {}, verb = 'get') {

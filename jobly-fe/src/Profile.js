@@ -27,27 +27,22 @@ class Profile extends Component {
 
   async handleSubmit(evt) {
     evt.preventDefault();
-    try {
-      const { username, password, photo_url, ...data } = this.state;
-      if (photo_url) {
-        this.setState({
-          // Refactor --DEFAULT PROPS -- use this url as the this.prop.photoUrl
-          photo_url: `https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg`
-        });
-      }
-      // Need to make two API calls - one to verify password is correct(returns the token)
-      const verified = await JoblyApi.login({ username, password });
-      // Another to update the user once password is verified, check if there's a token
-      if (verified) {
-        await JoblyApi.patchUserInfo(username, data);
-      } else {
-        alert('Wrong password');
-      }
-      // Refactor -- don't use both try/catch and if/else here
-    } catch (error) {
-      console.log(error);
+    const { username, password, photo_url, ...data } = this.state;
+    if (photo_url) {
+      this.setState({
+        // Refactor --DEFAULT PROPS -- use this url as the this.prop.photoUrl
+        photo_url: `https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg`
+      });
+    }
+    // Need to make two API calls - one to verify password is correct(returns the token)
+    const verified = await JoblyApi.login({ username, password });
+    // Another to update the user once password is verified, check if there's a token
+    if (verified) {
+      await JoblyApi.patchUserInfo(username, data);
+    } else {
       alert('Wrong password');
     }
+
     this.setState({ password: '' });
   }
 
@@ -56,7 +51,6 @@ class Profile extends Component {
   }
 
   render() {
-    console.log(`inside Profile-------`, this.props);
     return (
       <div className=" d-flex bd-highlight container">
         <div className="container">

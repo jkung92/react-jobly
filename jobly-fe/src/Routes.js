@@ -1,5 +1,4 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
-import NavBar from './NavBar.js';
 import React, { Component } from 'react';
 import Home from './Home';
 import Jobs from './Jobs';
@@ -49,23 +48,6 @@ class Routes extends Component {
           />
           <Redirect to="/" />
         </Switch>
-        {/* ) : ( */}
-        {/* <Switch>
-            <Route exact path="/" render={() => <Home />} />
-            <Route
-              exact
-              path="/login"
-              render={routeProps => (
-                <Login
-                  {...routeProps}
-                  getUserInfo={this.props.getUserInfo}
-                  data={this.props.data}
-                />
-              )}
-            />
-            <Redirect to="/" />
-          </Switch>
-        )} */}
       </div>
     );
   }

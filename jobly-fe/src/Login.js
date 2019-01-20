@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import Input from './Input';
 import JoblyApi from './JoblyApi';
-// import { ButtonGroup } from 'react-native-elements';
 
 class Login extends Component {
   constructor(props) {
     super(props);
-    // default fullName is an empty string
     this.state = {
       username: '',
       password: '',

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import axios from 'axios';
 import JoblyApi from './JoblyApi';
 import Card from './Card';
 import SearchBar from './SearchBar';
@@ -28,7 +27,6 @@ class Jobs extends Component {
   };
 
   render() {
-    console.log(`Inside Jobs.js --- props are`, this.props.data);
     return (
       <div>
         <h1> Jobs </h1>
