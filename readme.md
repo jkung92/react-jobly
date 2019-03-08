@@ -1,6 +1,7 @@
 # Setup
 
 npm install
+````
 npm start
 
 # Deployed on Heroku:
