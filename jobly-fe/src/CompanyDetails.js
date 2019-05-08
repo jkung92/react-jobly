@@ -20,11 +20,9 @@ class CompanyDetails extends Component {
     this.setState({ ...company });
     // need to hit api again to update the jobs array to include state
     const jobs = await JoblyApi.getAllJobs();
-    console.log(`these are the jobs ---------`, jobs);
     const companyJobs = jobs.filter(
       job => job.company_handle === this.state.handle
     );
-    console.log(`these are the company jobs`, companyJobs);
     this.setState({ jobs: companyJobs });
   }
 
@@ -40,7 +38,6 @@ class CompanyDetails extends Component {
     if (!this.state.handle) {
       return <h3>Loading...</h3>;
     }
-    console.log('conpany details, jobs array', this.state.jobs);
     return (
       <div>
         <p>{this.state.name}</p>

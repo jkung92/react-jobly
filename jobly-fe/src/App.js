@@ -33,7 +33,6 @@ class App extends Component {
     const payloadJSON = JSON.parse(payload);
     const userName = payloadJSON.username;
     const currUser = await JoblyApi.getUserInfo(userName);
-    console.log(currUser);
     this.setState({ currUser });
   };
 

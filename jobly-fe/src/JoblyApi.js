@@ -75,7 +75,6 @@ class JoblyApi {
       { id, userName, state },
       'post'
     );
-    console.log(`Inside JoblyAPI.js, checking results: `, res);
     return res;
   }
 }
